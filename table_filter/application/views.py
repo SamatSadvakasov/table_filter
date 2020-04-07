@@ -17,7 +17,6 @@ def search(request):
 
     user_list = User.objects.all().order_by('id')
     page = request.GET.get('page', 1)
-    print(page)
     if page == 1:
     	user_filter = UserFilter(request.GET, queryset=user_list)
     else:
@@ -33,5 +32,5 @@ def search(request):
     except EmptyPage:
         users = paginator.page(paginator.num_pages)
 
-    return render(request, 'application/index.html', {'filter': user_filter,
+    return render(request, 'application/test.html', {'filter': user_filter,
     	'users': users})
