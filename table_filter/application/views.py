@@ -21,9 +21,10 @@ def search(request):
     if page == 1:
     	user_filter = UserFilter(request.GET, queryset=user_list)
     else:
-    	print(dict(request.session['request_save']))
-    	print(dict(request.GET))
-    	user_filter = UserFilter(request.session['request_save'], queryset=user_list)
+    	if request.session['request_save']:
+    	    user_filter = UserFilter(request.session['request_save'], queryset=user_list)
+    	else:
+    		user_filter = UserFilter(request.GET, queryset=user_list)
     paginator = Paginator(user_filter.qs, 5)
     try:
         users = paginator.page(page)
